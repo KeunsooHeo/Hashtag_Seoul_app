@@ -32,7 +32,6 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity{
     LinearLayout linearLayout_list, linearLayout_header;
-    TextView statement;
     ImageView imageView_all, imageView_like, imageView_hash;
     String id;
     static final int ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5, OLD=6, CITIZEN=7, KIDS=8, PREGNANT=9, DISABLE=10, LOW_INCOME=11, YOUTH=12, H_EDU=13, H_FIN=14, H_CUL=15, H_TNG=16, H_CON=17, H_HEL=18, H_HOU=19, H_JOB=20, H_FAL=21;
