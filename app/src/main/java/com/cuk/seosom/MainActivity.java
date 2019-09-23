@@ -33,8 +33,10 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity{
     LinearLayout linearLayout_list, linearLayout_header;
     TextView statement;
-    final int NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5, OLD=6, CITIZEN=7, KIDS=8, PREGNANT=9, DISABLE=10, LOW_INCOME=11, YOUTH=12, H_EDU=13, H_FIN=14, H_CUL=15, H_TNG=16, H_CON=17, H_HEL=18, H_HOU=19, H_JOB=20, H_FAL=21;
-    boolean[] filter;
+    ImageView imageView_all, imageView_like, imageView_hash;
+    String id;
+    static final int ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5, OLD=6, CITIZEN=7, KIDS=8, PREGNANT=9, DISABLE=10, LOW_INCOME=11, YOUTH=12, H_EDU=13, H_FIN=14, H_CUL=15, H_TNG=16, H_CON=17, H_HEL=18, H_HOU=19, H_JOB=20, H_FAL=21;
+    static final int H_START = 6, H_END=22;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +45,21 @@ public class MainActivity extends AppCompatActivity{
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+
         linearLayout_list   = (LinearLayout) findViewById(R.id.layout_list);
         linearLayout_header = (LinearLayout) findViewById(R.id.layout_header);
-        filter = new boolean[11];
-        Arrays.fill(filter, true);
-        System.out.println(filter);
+        imageView_all = (ImageView) findViewById(R.id.imageView_all);
+        imageView_like = (ImageView) findViewById(R.id.imageView_like);
+        imageView_hash = (ImageView) findViewById(R.id.imageView_hash);
 
-        makeList();
+
+        makeList(ALL);
     }
 
-    private void makeList() {
+    private void makeList(int col) {
+        linearLayout_list.removeAllViews();
         BufferedReader br = null;
         String line;
         String cvsSplitBy = ",";
@@ -64,9 +71,14 @@ public class MainActivity extends AppCompatActivity{
             columnText = br.readLine().split(cvsSplitBy);
             while ((line = br.readLine()) != null) {
                 String[] field = line.split(cvsSplitBy);
-                System.out.print(field[1]);
-                System.out.println(field[IMAGE_LINK]);
-                linearLayout_list.addView(new ContentLayout(this, field, columnText));
+                if (col == ALL) {
+                    linearLayout_list.addView(new ContentLayout(this, field, columnText));
+                }
+                else{
+                    if(field[col].equals("1")){
+                        linearLayout_list.addView(new ContentLayout(this, field, columnText));
+                    }
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -83,7 +95,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     Context context;
     String[] row, columns;
     final int NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5, OLD=6, MUTI_CUL=7, CITIZEN=8, KIDS=9, PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22;
-    final int H_START = 14, H_END=22;
+    final int H_START = 6, H_END=22;
     final int dip = getResources().getDimensionPixelSize(R.dimen.dip);
 
     public ContentLayout(Context context, String[] row, String[] columns) {
@@ -113,7 +125,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         textView.setBackgroundColor(ContextCompat.getColor(getContext() ,R.color.colorPrimaryDark));
         textView.setGravity(Gravity.CENTER);
         textView.setOnClickListener(this);
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 30*dip));//LinearLayout.LayoutParams.WRAP_CONTENT));
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 30*dip));
 
         setBackgroundColor(0xffffffff);
         if (!imageLink.equals("")) {
