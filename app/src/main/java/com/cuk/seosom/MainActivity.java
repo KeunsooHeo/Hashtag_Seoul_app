@@ -1,5 +1,7 @@
 package com.cuk.seosom;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,12 +18,15 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,11 +35,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     LinearLayout linearLayout_list, linearLayout_header;
     ImageView imageView_all, imageView_like, imageView_hash;
     String id;
-    static final int ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5, OLD=6, CITIZEN=7, KIDS=8, PREGNANT=9, DISABLE=10, LOW_INCOME=11, YOUTH=12, H_EDU=13, H_FIN=14, H_CUL=15, H_TNG=16, H_CON=17, H_HEL=18, H_HOU=19, H_JOB=20, H_FAL=21;
+    static final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22;
     static final int H_START = 6, H_END=22;
 
     @Override
@@ -50,11 +55,16 @@ public class MainActivity extends AppCompatActivity{
         linearLayout_list   = (LinearLayout) findViewById(R.id.layout_list);
         linearLayout_header = (LinearLayout) findViewById(R.id.layout_header);
         imageView_all = (ImageView) findViewById(R.id.imageView_all);
+        imageView_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeList(ALL);
+            }
+        });
         imageView_like = (ImageView) findViewById(R.id.imageView_like);
         imageView_hash = (ImageView) findViewById(R.id.imageView_hash);
-
-
-        makeList(ALL);
+        imageView_hash.setOnClickListener(this);
+        makeList(NONE);
     }
 
     private void makeList(int col) {
@@ -63,6 +73,7 @@ public class MainActivity extends AppCompatActivity{
         String line;
         String cvsSplitBy = ",";
         String[] columnText;
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         try{
             InputStream in = getResources().openRawResource(R.raw.data);
             InputStreamReader is = new InputStreamReader(in, "UTF-8");
@@ -73,6 +84,9 @@ public class MainActivity extends AppCompatActivity{
                 if (col == ALL) {
                     linearLayout_list.addView(new ContentLayout(this, field, columnText));
                 }
+                else if (col == NONE){
+
+                }
                 else{
                     if(field[col].equals("1")){
                         linearLayout_list.addView(new ContentLayout(this, field, columnText));
@@ -81,6 +95,26 @@ public class MainActivity extends AppCompatActivity{
             }
         }catch(Exception e){
             e.printStackTrace();
+        }
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != Activity.RESULT_CANCELED && data != null) {
+            if(requestCode == 101){
+                int index = data.getExtras().getInt("index");
+                makeList(index);
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == imageView_hash){
+            Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
+            startActivityForResult(intent, 101);
         }
     }
 }
@@ -93,7 +127,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     TextView footer1, footer2;
     Context context;
     String[] row, columns;
-    final int NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5, OLD=6, MUTI_CUL=7, CITIZEN=8, KIDS=9, PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22;
+    final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22;
     final int H_START = 6, H_END=22;
     final int dip = getResources().getDimensionPixelSize(R.dimen.dip);
 
@@ -133,10 +167,11 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
-                InputStream is = connection.getInputStream();
+                InputStream is = new BufferedInputStream(connection.getInputStream());
                 Bitmap bitmap = BitmapFactory.decodeStream(is);
                 imageView.setImageBitmap(bitmap);
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                connection.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -175,7 +210,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         for(int i=H_START; i<=H_END; i++){
             if(Integer.parseInt(row[i])==1) {
                 TextView hashTag = new TextView(context);
-                hashTag.setPadding(dip,0,dip,0);
+                hashTag.setPadding((int) (0.5*dip),0,(int) (0.5*dip),0);
                 hashTag.setText(columns[i]);
                 mainHashTagLayout.addView(hashTag);
             }

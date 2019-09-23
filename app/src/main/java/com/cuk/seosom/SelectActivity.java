@@ -1,5 +1,6 @@
 package com.cuk.seosom;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
+        contents = new ArrayList<LinearLayout>();
         contents.add((LinearLayout) findViewById(R.id.content_1));
         contents.add((LinearLayout) findViewById(R.id.content_2));
         contents.add((LinearLayout) findViewById(R.id.content_3));
@@ -37,9 +39,11 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        int index = contents.indexOf((LinearLayout) v);
-        Intent result = new Intent();
-        result.putExtra("chosen",MainActivity.H_START+index);
+        int index = contents.indexOf((LinearLayout) v) + 6;
+        System.out.println("index : "+index);
+        Intent intent = new Intent();
+        intent.putExtra("index",index);
+        setResult(RESULT_OK,intent);
         finish();
     }
 }

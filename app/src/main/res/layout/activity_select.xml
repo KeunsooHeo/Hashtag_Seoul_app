@@ -29,18 +29,18 @@
                 android:id="@+id/content_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#서울시민"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -48,18 +48,18 @@
                 android:id="@+id/content_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#노인"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -67,18 +67,18 @@
                 android:id="@+id/content_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#다문화가정"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -86,18 +86,18 @@
                 android:id="@+id/content_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#아동청소년"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -112,18 +112,18 @@
                 android:id="@+id/content_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#임산부"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -131,18 +131,18 @@
                 android:id="@+id/content_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#장애여부"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -150,18 +150,18 @@
                 android:id="@+id/content_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#청년"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -169,18 +169,18 @@
                 android:id="@+id/content_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#교육지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -194,18 +194,18 @@
                 android:id="@+id/content_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#금융지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -213,18 +213,18 @@
                 android:id="@+id/content_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#문화지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -232,18 +232,18 @@
                 android:id="@+id/content_11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#물품지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -251,18 +251,18 @@
                 android:id="@+id/content_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#상담지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -276,18 +276,18 @@
                 android:id="@+id/content_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#의료지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -295,18 +295,18 @@
                 android:id="@+id/content_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#주거지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -314,18 +314,18 @@
                 android:id="@+id/content_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#취업지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -333,18 +333,18 @@
                 android:id="@+id/content_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:srcCompat="@drawable/all" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#hash"
+                    android:text="#편의시설"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
