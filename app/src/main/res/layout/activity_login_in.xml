@@ -33,7 +33,7 @@
         android:layout_width="214dp"
         android:layout_height="44dp"
         android:ems="10"
-        android:hint="숫자 6자리"
+        android:hint="숫자 최대 6자리"
         android:inputType="numberPassword"
         android:maxLength="6"
         android:singleLine="true"

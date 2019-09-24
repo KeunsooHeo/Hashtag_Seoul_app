@@ -51,6 +51,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
             }
             else{
                 db.execSQL("insert into user (id, pw) values (?,?)", new String[]{id, pw});
+                // -- 다음 설정창으로
             }
         } else if(v == button_cancel){
             finish();

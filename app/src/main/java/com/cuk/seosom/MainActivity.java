@@ -23,6 +23,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +34,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     LinearLayout linearLayout_list, linearLayout_header;
     ImageView imageView_all, imageView_like, imageView_hash;
+    ArrayList<ContentLayout> contentLayouts;
     String id;
-    static final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22, DISCRIP=23;
-    static final int H_START = 6, H_END=22;
+    static final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, DISCRIP=4, AGE_UPPER=5, AGE_LOWWER=6,  CITIZEN=7, OLD=8, MULTI=9 ,KIDS=10,PREGNANT=11, DISABLE=12, LOW_INCOME=13, YOUTH=14, H_EDU=15, H_FIN=16, H_CUL=17, H_TNG=18, H_CON=19, H_HEL=20, H_HOU=21, H_JOB=22, H_FAL=23;
+    static final int H_START=7, H_END=23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        contentLayouts = new ArrayList<ContentLayout>();
+        MyAsyncTask myAsyncTask = new MyAsyncTask();
+        myAsyncTask.execute();
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -64,39 +72,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageView_like = (ImageView) findViewById(R.id.imageView_like);
         imageView_hash = (ImageView) findViewById(R.id.imageView_hash);
         imageView_hash.setOnClickListener(this);
-        makeList(NONE);
     }
 
     private void makeList(int col) {
         linearLayout_list.removeAllViews();
-        BufferedReader br = null;
-        String line;
-        String cvsSplitBy = ",";
-        String[] columnText;
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        try{
-            InputStream in = getResources().openRawResource(R.raw.data);
-            InputStreamReader is = new InputStreamReader(in, "UTF-8");
-            br = new BufferedReader(is);
-            columnText = br.readLine().split(cvsSplitBy);
-            while ((line = br.readLine()) != null) {
-                String[] field = line.split(cvsSplitBy);
-                if (col == ALL) {
-                    linearLayout_list.addView(new ContentLayout(this, field, columnText));
-                }
-                else if (col == NONE){
-
-                }
-                else{
-                    if(field[col].equals("1")){
-                        linearLayout_list.addView(new ContentLayout(this, field, columnText));
-                    }
-                }
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+        for(ContentLayout contentLayout:contentLayouts){
+            if (col == NONE);
+            else if(col==ALL ||contentLayout.isSelected(col)) linearLayout_list.addView(contentLayout);
         }
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
@@ -117,6 +100,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(intent, 101);
         }
     }
+
+    class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... params){
+            BufferedReader br = null;
+            String line;
+            String cvsSplitBy = ",";
+            String[] columnText;
+            InputStream in = getResources().openRawResource(R.raw.data);
+            try{
+                InputStreamReader is = new InputStreamReader(in, "UTF-8");
+                br = new BufferedReader(is);
+                columnText = br.readLine().split(cvsSplitBy);
+                while ((line = br.readLine()) != null) {
+                    String[] field = line.split(cvsSplitBy);
+                    System.out.println(field);
+                    contentLayouts.add(new ContentLayout(MainActivity.this, field, columnText));
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+                return -1;
+            }
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+
+            Toast.makeText(MainActivity.this,"작업이 끝났습니다.",Toast.LENGTH_LONG).show();
+        }
+    }
 }
 
 class ContentLayout extends LinearLayout implements View.OnClickListener{
@@ -127,8 +143,8 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     TextView footer1, footer2;
     Context context;
     String[] row, columns;
-    final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22, DISCRIP=23;
-    final int H_START = 6, H_END=22;
+    final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, DISCRIP=4, AGE_UPPER=5, AGE_LOWWER=6,  CITIZEN=7, OLD=8, MULTI=9 ,KIDS=10,PREGNANT=11, DISABLE=12, LOW_INCOME=13, YOUTH=14, H_EDU=15, H_FIN=16, H_CUL=17, H_TNG=18, H_CON=19, H_HEL=20, H_HOU=21, H_JOB=22, H_FAL=23;
+    final int H_START=7, H_END=23;
     final int dip = getResources().getDimensionPixelSize(R.dimen.dip);
 
     public ContentLayout(Context context, String[] row, String[] columns) {
@@ -181,7 +197,6 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         addView(imageView);
 
         setMainLayout();
-
         setFooterLayout();
     }
 
@@ -243,6 +258,10 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         this.addView(footerLayout);
     }
 
+    public boolean isSelected(int col){
+        return (row[col].equals("1"));
+    }
+
     @Override
     public void onClick(View v) {
         if (v == footer1){
@@ -254,28 +273,5 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
-    }
-}
-
-class MyAsyncTask extends AsyncTask<Integer, Integer, Integer> {
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
-    protected Integer doInBackground(Integer... integers){
-        return 0;
-    }
-
-    @Override
-    protected void onProgressUpdate(Integer... params) {
-
-    }
-
-    @Override
-    protected void onPostExecute(Integer result) {
-        super.onPostExecute(result);
     }
 }

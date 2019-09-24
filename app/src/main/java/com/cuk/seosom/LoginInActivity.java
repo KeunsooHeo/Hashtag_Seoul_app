@@ -1,6 +1,10 @@
 package com.cuk.seosom;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -17,16 +21,13 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
     Button button_login, button_create;
     EditText editText_id, editText_pw;
     String id, pw;
-    ArrayList<String> id_list, pw_list;
-
+    SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_in);
-        id_list = new ArrayList<>();
-        id_list.add("test");
-        pw_list = new ArrayList<>();
-        pw_list.add("1234");
+        DBHelper dbHelper = new DBHelper(this);
+        db = dbHelper.getReadableDatabase();
         button_login = (Button) findViewById(R.id.button_login);
         button_create = (Button) findViewById(R.id.button_create);
         editText_id = (EditText) findViewById(R.id.editText_id);
@@ -66,19 +67,22 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
     void actionSearch(){
         id = editText_id.getText().toString();
         pw = editText_pw.getText().toString();
-
-        if(id_list.contains(id)){
-            if(pw.equals(pw_list.get(id_list.indexOf(id)))){
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("id",id);
-                startActivity(intent);
+        Cursor cursor = db.rawQuery("select id, pw from user",null);
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(id)){
+                System.out.println("id : "+ cursor.getString(0));
+                if(cursor.getString(1).equals(pw)){
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("id",id);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(this,"비밀번호가 틀립니다.",Toast.LENGTH_LONG).show();
+                }
             }
             else{
-                Toast.makeText(this, "아이디 혹은 비밀번호가 틀렸습니다.",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"아이디 혹은 비밀번호가 틀립니다.",Toast.LENGTH_LONG).show();
             }
-        }
-        else{
-            Toast.makeText(this, "아이디가 존재하지 않습니다.",Toast.LENGTH_LONG).show();
         }
     }
 }

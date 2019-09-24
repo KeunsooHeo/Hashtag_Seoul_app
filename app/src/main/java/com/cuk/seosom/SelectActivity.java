@@ -39,7 +39,7 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        int index = contents.indexOf((LinearLayout) v) + 6;
+        int index = contents.indexOf((LinearLayout) v) + MainActivity.H_START;
         System.out.println("index : "+index);
         Intent intent = new Intent();
         intent.putExtra("index",index);
