@@ -35,7 +35,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_seoul" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -54,12 +54,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_old" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#노인"
+                    android:text="#어르신"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -73,7 +73,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_multi" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_youth2" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_prag" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_dis" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -156,7 +156,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_youth" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -175,7 +175,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_edu" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -200,7 +200,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_fin" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -219,7 +219,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_cul" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -238,7 +238,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_thing" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -257,7 +257,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_cons" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -282,7 +282,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_medi" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -301,7 +301,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_house" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -320,7 +320,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_job" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -339,7 +339,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/all" />
+                    app:srcCompat="@drawable/pic_faci" />
 
                 <TextView
                     android:layout_width="match_parent"

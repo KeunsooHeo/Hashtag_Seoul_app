@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout linearLayout_list, linearLayout_header;
     ImageView imageView_all, imageView_like, imageView_hash;
     String id;
-    static final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22;
+    static final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22, DISCRIP=23;
     static final int H_START = 6, H_END=22;
 
     @Override
@@ -120,14 +120,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 
 class ContentLayout extends LinearLayout implements View.OnClickListener{
-    String title, link, imageLink, no;
+    String title, link, imageLink, no, discription;
     TextView textView,mainTextView1;
     ImageView imageView;
     LinearLayout mainLayout,footerLayout,mainHashTagLayout;
     TextView footer1, footer2;
     Context context;
     String[] row, columns;
-    final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22;
+    final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, AGE_UPPER=4, AGE_LOWWER=5,  CITIZEN=6, OLD=7, MULTI=8 ,KIDS=9,PREGNANT=10, DISABLE=11, LOW_INCOME=12, YOUTH=13, H_EDU=14, H_FIN=15, H_CUL=16, H_TNG=17, H_CON=18, H_HEL=19, H_HOU=20, H_JOB=21, H_FAL=22, DISCRIP=23;
     final int H_START = 6, H_END=22;
     final int dip = getResources().getDimensionPixelSize(R.dimen.dip);
 
@@ -140,6 +140,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         this.imageLink = row[IMAGE_LINK];
         this.row = row;
         this.columns = columns;
+        this.discription = row[DISCRIP];
 
         textView = new TextView(context);
         imageView = new ImageView(context);
@@ -192,7 +193,9 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         mainHashTagLayout = new LinearLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params.weight = 5;
-        mainTextView1.setBackgroundColor(0x88448844);
+        //mainTextView1.setBackgroundColor(0x88448844);
+        mainTextView1.setText(discription);
+        mainTextView1.setPadding(dip,dip,dip,dip);
         mainTextView1.setLayoutParams(params);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params2.weight = 2;
@@ -251,5 +254,28 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
+    }
+}
+
+class MyAsyncTask extends AsyncTask<Integer, Integer, Integer> {
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected Integer doInBackground(Integer... integers){
+        return 0;
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... params) {
+
+    }
+
+    @Override
+    protected void onPostExecute(Integer result) {
+        super.onPostExecute(result);
     }
 }

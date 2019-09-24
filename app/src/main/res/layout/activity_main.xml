@@ -13,6 +13,7 @@ tools:context=".MainActivity">
         android:layout_weight="1"
         android:orientation="horizontal">
         <ImageView
+            android:layout_margin="5dp"
             android:id="@+id/imageView_all"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -25,11 +26,13 @@ tools:context=".MainActivity">
             android:layout_weight="1"
             app:srcCompat="@drawable/like" />
         <ImageView
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:id="@+id/imageView_hash"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/like" />
+            app:srcCompat="@drawable/hash" />
     </LinearLayout>
 
     <ScrollView
