@@ -10,13 +10,14 @@
         android:id="@+id/frame1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
+
         <EditText
             android:id="@+id/editText_create_pw"
             android:layout_width="214dp"
             android:layout_height="44dp"
             android:ems="10"
-            android:hint="숫자 6자리"
+            android:hint="숫자 최대 6자리"
             android:inputType="numberPassword"
             android:maxLength="6"
             android:singleLine="true"
@@ -309,7 +310,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout_signin_2">
             <LinearLayout
-                android:id="@+id/signin2_3_no"
+                android:id="@+id/signin2_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -332,6 +333,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/frame4"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -359,7 +361,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView_signin_3">
 
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_1_edu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -368,17 +370,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_edu" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="교육지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_2_fin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -387,17 +389,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_fin" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="금융지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_3_cul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -406,12 +408,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_cul" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="문화지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -427,7 +429,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout_signin_3">
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_4_thing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -436,17 +438,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_thing" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="물품지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_5_cons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -455,17 +457,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_cons" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="상담지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_6_medi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -474,12 +476,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_medi" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="의료지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -495,7 +497,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout_signin_3_2">
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_7_house"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -504,17 +506,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_house" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="주거지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_8_job"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -523,17 +525,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_job" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="취업지원"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/signin3_1"
+                android:id="@+id/signin4_9_faci"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -542,12 +544,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_faci" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="편의시설"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -562,16 +564,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout_signin_3_3">
             <LinearLayout
-                android:id="@+id/signin3_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
-                <ImageView
+                <View
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_faci" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -599,7 +600,7 @@
                     android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/signin3_11_ok"
+                android:id="@+id/signin4_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

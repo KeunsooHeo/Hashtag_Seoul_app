@@ -48,7 +48,6 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                 return true;
             }
         });
-
         button_login.setOnClickListener(this);
         button_create.setOnClickListener(this);
     }
@@ -67,7 +66,16 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
     void actionSearch(){
         id = editText_id.getText().toString();
         pw = editText_pw.getText().toString();
+        if(pw.length() != 6){
+            Toast.makeText(this,"비밀번호 6자리를 입력해주세요.",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(id.equals("") || pw.equals("")){
+            Toast.makeText(this, "아이디 혹은 비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         Cursor cursor = db.rawQuery("select id, pw from user",null);
+
         while(cursor.moveToNext()){
             if(cursor.getString(0).equals(id)){
                 System.out.println("id : "+ cursor.getString(0));
@@ -75,14 +83,13 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("id",id);
                     startActivity(intent);
-                }
-                else{
-                    Toast.makeText(this,"비밀번호가 틀립니다.",Toast.LENGTH_LONG).show();
+                    return;
                 }
             }
             else{
-                Toast.makeText(this,"아이디 혹은 비밀번호가 틀립니다.",Toast.LENGTH_LONG).show();
+                continue;
             }
         }
+        Toast.makeText(this,"아이디 혹은 비밀번호를 다시 확인해주세요.",Toast.LENGTH_LONG).show();
     }
 }

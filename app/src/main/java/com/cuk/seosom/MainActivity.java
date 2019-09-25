@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -38,18 +40,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     LinearLayout linearLayout_list, linearLayout_header;
     ImageView imageView_all, imageView_like, imageView_hash;
     ArrayList<ContentLayout> contentLayouts;
     String id;
+    ScrollView scrollView;
+    boolean loading;
     static final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, DISCRIP=4, AGE_UPPER=5, AGE_LOWWER=6,  CITIZEN=7, OLD=8, MULTI=9 ,KIDS=10,PREGNANT=11, DISABLE=12, LOW_INCOME=13, YOUTH=14, H_EDU=15, H_FIN=16, H_CUL=17, H_TNG=18, H_CON=19, H_HEL=20, H_HOU=21, H_JOB=22, H_FAL=23;
     static final int H_START=7, H_END=23;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = openOrCreateDatabase("user", MODE_PRIVATE, null);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -63,23 +73,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         linearLayout_list   = (LinearLayout) findViewById(R.id.layout_list);
         linearLayout_header = (LinearLayout) findViewById(R.id.layout_header);
         imageView_all = (ImageView) findViewById(R.id.imageView_all);
-        imageView_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makeList(ALL);
-            }
-        });
+        imageView_all.setOnClickListener(this);
         imageView_like = (ImageView) findViewById(R.id.imageView_like);
+        imageView_like.setOnClickListener(this);
         imageView_hash = (ImageView) findViewById(R.id.imageView_hash);
         imageView_hash.setOnClickListener(this);
+        scrollView = (ScrollView) findViewById(R.id.scrollView);
     }
 
     private void makeList(int col) {
+        loading = true;
         linearLayout_list.removeAllViews();
         for(ContentLayout contentLayout:contentLayouts){
             if (col == NONE);
             else if(col==ALL ||contentLayout.isSelected(col)) linearLayout_list.addView(contentLayout);
         }
+        loading = false;
     }
 
     @Override
@@ -95,9 +104,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(v == imageView_hash){
+        if(loading) {
+            Toast.makeText(this, "목록을 불러오고 있습니다. 잠시만 기다려주십시오.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(v == imageView_hash){
             Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
             startActivityForResult(intent, 101);
+        }
+        else if (v == imageView_all){
+            makeList(ALL);
+        }
+        else if (v == imageView_like){
+            loading = true;
+            linearLayout_list.removeAllViews();
+            makeLikeList();
+            loading = false;
+        }
+        scrollView.scrollTo(0,0);
+    }
+
+    private void makeLikeList() {
+        Cursor cursor = db.rawQuery("select num from userlike where id=?",new String[]{id});
+        while (cursor.moveToNext()){
+            try{
+                addListByNo(Integer.parseInt(cursor.getString(0)));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                continue;
+            }
+        }
+    }
+
+    private void addListByNo(int no) {
+        for(ContentLayout contentLayout:contentLayouts){
+            if (Integer.parseInt(contentLayout.getNo()) == no) {
+                linearLayout_list.addView(contentLayout);
+            }
         }
     }
 
@@ -105,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected Integer doInBackground(Void... params){
+            loading = true;
             BufferedReader br = null;
             String line;
             String cvsSplitBy = ",";
@@ -117,37 +162,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 while ((line = br.readLine()) != null) {
                     String[] field = line.split(cvsSplitBy);
                     System.out.println(field);
-                    contentLayouts.add(new ContentLayout(MainActivity.this, field, columnText));
+                    contentLayouts.add(new ContentLayout(MainActivity.this, id, field, columnText));
                 }
             } catch(Exception e){
                 e.printStackTrace();
                 return -1;
             }
+            loading = false;
             return 0;
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
-
-            Toast.makeText(MainActivity.this,"작업이 끝났습니다.",Toast.LENGTH_LONG).show();
         }
     }
 }
 
 class ContentLayout extends LinearLayout implements View.OnClickListener{
-    String title, link, imageLink, no, discription;
+    String title, link, imageLink, no, discription, id;
     TextView textView,mainTextView1;
     ImageView imageView;
     LinearLayout mainLayout,footerLayout,mainHashTagLayout;
     TextView footer1, footer2;
     Context context;
     String[] row, columns;
+    SQLiteDatabase db;
+    boolean isLike;
     final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, DISCRIP=4, AGE_UPPER=5, AGE_LOWWER=6,  CITIZEN=7, OLD=8, MULTI=9 ,KIDS=10,PREGNANT=11, DISABLE=12, LOW_INCOME=13, YOUTH=14, H_EDU=15, H_FIN=16, H_CUL=17, H_TNG=18, H_CON=19, H_HEL=20, H_HOU=21, H_JOB=22, H_FAL=23;
     final int H_START=7, H_END=23;
     final int dip = getResources().getDimensionPixelSize(R.dimen.dip);
 
-    public ContentLayout(Context context, String[] row, String[] columns) {
+    public ContentLayout(Context context,String id,String[] row, String[] columns) {
         super(context);
         this.context = context;
         this.no = row[NO];
@@ -157,12 +198,15 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         this.row = row;
         this.columns = columns;
         this.discription = row[DISCRIP];
+        this.id = id;
 
+        db = getContext().openOrCreateDatabase("user", Context.MODE_PRIVATE, null);
         textView = new TextView(context);
         imageView = new ImageView(context);
         footerLayout = new LinearLayout(context);
         mainLayout = new LinearLayout(context);
         setOrientation(VERTICAL);
+        isLike = setLike();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(3*dip,dip,3*dip,dip);
         setLayoutParams(params);
@@ -200,6 +244,15 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         setFooterLayout();
     }
 
+    private boolean setLike() {
+        SQLiteDatabase db = getContext().openOrCreateDatabase("user", Context.MODE_PRIVATE, null);
+        Cursor cursor = db.rawQuery("select num from userlike where id=?",new String[]{id});
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(this.no)) return true;
+        }
+        return false;
+    }
+
     private void setMainLayout(){
         mainLayout.setOrientation(VERTICAL);
         mainLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 20*dip));
@@ -230,6 +283,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
                 TextView hashTag = new TextView(context);
                 hashTag.setPadding((int) (0.5*dip),0,(int) (0.5*dip),0);
                 hashTag.setText(columns[i]);
+                hashTag.setTextColor(ContextCompat.getColor(getContext(),R.color.hashtag));
                 mainHashTagLayout.addView(hashTag);
             }
         }
@@ -254,7 +308,13 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         footer2.setLayoutParams(params);
         footerLayout.addView(footer1);
         footerLayout.addView(footer2);
-        footerLayout.setBackgroundColor(0xff00ffff);
+        footerLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
+        if (!isLike()){
+            like();
+        }
+        else{
+            dislike();
+        }
         this.addView(footerLayout);
     }
 
@@ -262,10 +322,19 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         return (row[col].equals("1"));
     }
 
+    public String getNo() {
+        return no;
+    }
+
     @Override
     public void onClick(View v) {
         if (v == footer1){
-            Toast.makeText(context,"LIKE!",Toast.LENGTH_LONG).show();
+            if (!isLike()){
+                like();
+            }
+            else{
+                dislike();
+            }
         }
         else if (v==footer2){
             Uri uri = Uri.parse(link);
@@ -273,5 +342,25 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
+    }
+
+    public boolean isLike() {
+        return this.isLike;
+    }
+
+    void like(){
+        isLike = !isLike;
+        footer1.setText("좋아요 취소");
+        footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.likeText));
+        footer1.setTextColor(0xffffffff);
+        db.execSQL("insert into userlike (id, num) values (?, ?)",new String[]{id,no});
+    }
+
+    void dislike(){
+        isLike = !isLike;
+        footer1.setText("좋아요");
+        footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
+        footer1.setTextColor(0xff000000);
+        db.execSQL("delete from userlike where id=? and num=?",new String[]{id,no});
     }
 }
