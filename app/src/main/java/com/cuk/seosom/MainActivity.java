@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 columnText = br.readLine().split(cvsSplitBy);
                 while ((line = br.readLine()) != null) {
                     String[] field = line.split(cvsSplitBy);
-                    System.out.println(field);
                     contentLayouts.add(new ContentLayout(MainActivity.this, id, field, columnText));
                 }
             } catch(Exception e){
@@ -183,7 +182,6 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     Context context;
     String[] row, columns;
     SQLiteDatabase db;
-    boolean isLike;
     final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, DISCRIP=4, AGE_UPPER=5, AGE_LOWWER=6,  CITIZEN=7, OLD=8, MULTI=9 ,KIDS=10,PREGNANT=11, DISABLE=12, LOW_INCOME=13, YOUTH=14, H_EDU=15, H_FIN=16, H_CUL=17, H_TNG=18, H_CON=19, H_HEL=20, H_HOU=21, H_JOB=22, H_FAL=23;
     final int H_START=7, H_END=23;
     final int dip = getResources().getDimensionPixelSize(R.dimen.dip);
@@ -206,7 +204,6 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         footerLayout = new LinearLayout(context);
         mainLayout = new LinearLayout(context);
         setOrientation(VERTICAL);
-        isLike = setLike();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(3*dip,dip,3*dip,dip);
         setLayoutParams(params);
@@ -226,6 +223,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
             try {
                 URL url = new URL(imageLink);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setReadTimeout(3 * 1000);
                 connection.connect();
 
                 InputStream is = new BufferedInputStream(connection.getInputStream());
@@ -237,6 +235,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
                 e.printStackTrace();
             }
         }
+
         addView(textView);
         addView(imageView);
 
@@ -244,14 +243,6 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         setFooterLayout();
     }
 
-    private boolean setLike() {
-        SQLiteDatabase db = getContext().openOrCreateDatabase("user", Context.MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select num from userlike where id=?",new String[]{id});
-        while(cursor.moveToNext()){
-            if(cursor.getString(0).equals(this.no)) return true;
-        }
-        return false;
-    }
 
     private void setMainLayout(){
         mainLayout.setOrientation(VERTICAL);
@@ -309,7 +300,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         footerLayout.addView(footer1);
         footerLayout.addView(footer2);
         footerLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
-        if (!isLike()){
+        if (isLike()){
             like();
         }
         else{
@@ -345,11 +336,17 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     }
 
     public boolean isLike() {
-        return this.isLike;
+        Cursor cursor = db.rawQuery("select num from userlike where id=? and num=?",new String[]{id, no});
+        if(cursor.moveToNext()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
+
     void like(){
-        isLike = !isLike;
         footer1.setText("좋아요 취소");
         footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.likeText));
         footer1.setTextColor(0xffffffff);
@@ -357,7 +354,6 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     }
 
     void dislike(){
-        isLike = !isLike;
         footer1.setText("좋아요");
         footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
         footer1.setTextColor(0xff000000);

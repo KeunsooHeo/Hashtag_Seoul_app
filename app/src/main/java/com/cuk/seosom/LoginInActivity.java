@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class LoginInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -80,6 +83,30 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
             if(cursor.getString(0).equals(id)){
                 System.out.println("id : "+ cursor.getString(0));
                 if(cursor.getString(1).equals(pw)){
+                    Cursor cursor1 = db.rawQuery("select num from userlike where id=?",new String[]{id});
+                    if(!cursor1.moveToNext()){
+                        Cursor cursor2 = db.rawQuery("select hash from userinfo where id=?",new String[]{id});
+                        BufferedReader br = null;
+                        String line;
+                        String cvsSplitBy = ",";
+                        InputStream in = getResources().openRawResource(R.raw.data);
+                        while(cursor2.moveToNext()){
+                            try{
+                                InputStreamReader is = new InputStreamReader(in, "UTF-8");
+                                br = new BufferedReader(is);
+                                while ((line = br.readLine()) != null) {
+                                    String[] field = line.split(cvsSplitBy);
+                                    if (field[Integer.parseInt(cursor1.getString(0))].equals("1")) {
+                                        System.out.println(field[1]);
+                                        db.execSQL("insert into userlike (id, num) values (?,?)",new String[]{id, field[0]});
+                                    }
+                                }
+                            } catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("id",id);
                     startActivity(intent);
