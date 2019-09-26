@@ -37,16 +37,15 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     EditText editText_id, editText_pw;
     Button button_ok, button_cancel;
     String id, pw;
-    SQLiteDatabase db;
     InputMethodManager imm;
+    DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        db = openOrCreateDatabase("user", MODE_PRIVATE, null);
+        dbHelper = new DBHelper(this);
         editText_id = (EditText) findViewById(R.id.editText_create_id);
         editText_pw = (EditText) findViewById(R.id.editText_create_pw);
 
@@ -107,10 +106,9 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         Arrays.fill(isClicked, false);
     }
 
-
-
     boolean checkid(String id){
-        Cursor cursor= db.rawQuery("select id, pw from user", null);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor= db.rawQuery("select distinct id, pw from user", null);
         while (cursor.moveToNext()){
             if(id.equals(cursor.getString(0))) return true;
         }
@@ -118,6 +116,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     void insertUserInfo(int col) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("insert into userinfo (id, hash) values (?,?)", new String[]{id, Integer.toString(col)});
     }
 
@@ -152,7 +151,15 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
             hideKeyboard();
             id = editText_id.getText().toString();
             pw = editText_pw.getText().toString();
-            if(checkid(id)){
+            if(id.length() < 4){
+                Toast.makeText(this,"아이디는 최소 4자리입니다.",Toast.LENGTH_LONG).show();
+                return;
+            }
+            else if(pw.length()!=6){
+                Toast.makeText(this,"아이디 혹은 비밀번호를 입력해주세요.",Toast.LENGTH_LONG).show();
+                return;
+            }
+            else if(checkid(id)){
                 Toast.makeText(this,"존재하는 아이디입니다.",Toast.LENGTH_LONG).show();
             }
             else{
@@ -286,7 +293,8 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void finishSignIn() {
-        db.execSQL("insert into user (id, pw) values (?,?)", new String[]{id, pw});
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("insert into user (id, pw) values (?,?)",new String[]{id,pw});
         for (int i=MainActivity.H_START; i<=MainActivity.H_END; i++){
             if (isClicked[i]) insertUserInfo(i);
         }

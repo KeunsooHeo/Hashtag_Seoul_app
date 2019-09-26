@@ -24,13 +24,12 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
     Button button_login, button_create;
     EditText editText_id, editText_pw;
     String id, pw;
-    SQLiteDatabase db;
+    DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_in);
-        DBHelper dbHelper = new DBHelper(this);
-        db = dbHelper.getReadableDatabase();
+        dbHelper = new DBHelper(this);
         button_login = (Button) findViewById(R.id.button_login);
         button_create = (Button) findViewById(R.id.button_create);
         editText_id = (EditText) findViewById(R.id.editText_id);
@@ -77,16 +76,16 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, "아이디 혹은 비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show();
             return;
         }
-        Cursor cursor = db.rawQuery("select id, pw from user",null);
-
+        SQLiteDatabase db = dbHelper.getWritableDatabase();;
+        Cursor cursor = db.rawQuery("select distinct id, pw from user",null);
         while(cursor.moveToNext()){
             if(cursor.getString(0).equals(id)){
                 System.out.println("id : "+ cursor.getString(0));
                 if(cursor.getString(1).equals(pw)){
-                    Cursor cursor1 = db.rawQuery("select num from userlike where id=?",new String[]{id});
+                    Cursor cursor1 = db.rawQuery("select distinct num from userlike where id=?",new String[]{id});
                     boolean a = cursor1.moveToNext();
                     if(!a){
-                        Cursor cursor2 = db.rawQuery("select hash from userinfo where id=?",new String[]{id});
+                        Cursor cursor2 = db.rawQuery("select distinct hash from userinfo where id=?",new String[]{id});
                         BufferedReader br = null;
                         String line;
                         String cvsSplitBy = ",";
@@ -99,7 +98,7 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                                     String[] field = line.split(cvsSplitBy);
                                     if (field[Integer.parseInt(cursor1.getString(0))].equals("1")) {
                                         System.out.println(field[1]);
-                                        db.execSQL("insert into userlike (id, num) values (?,?)",new String[]{id, field[0]});
+                                        db.execSQL("insert into userlike (id, num) values ('"+id+"','"+field[0]+"')",null);
                                     }
                                 }
                             } catch(Exception e){

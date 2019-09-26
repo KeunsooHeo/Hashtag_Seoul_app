@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -48,17 +50,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<ContentLayout> contentLayouts;
     String id;
     ScrollView scrollView;
+    DBHelper dbHelper;
     boolean loading;
     static final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, DISCRIP=4, AGE_UPPER=5, AGE_LOWWER=6,  CITIZEN=7, OLD=8, MULTI=9 ,KIDS=10,PREGNANT=11, DISABLE=12, LOW_INCOME=13, YOUTH=14, H_EDU=15, H_FIN=16, H_CUL=17, H_TNG=18, H_CON=19, H_HEL=20, H_HOU=21, H_JOB=22, H_FAL=23;
     static final int H_START=7, H_END=23;
-    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        db = openOrCreateDatabase("user", MODE_PRIVATE, null);
+        dbHelper = new DBHelper(this);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -86,7 +87,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         linearLayout_list.removeAllViews();
         for(ContentLayout contentLayout:contentLayouts){
             if (col == NONE);
-            else if(col==ALL ||contentLayout.isSelected(col)) linearLayout_list.addView(contentLayout);
+            else if(col==ALL ||contentLayout.isSelected(col)){
+                //if(contentLayout.getParent() != null) ((ViewGroup)contentLayout.getParent()).removeView(contentLayout); // <- fix
+
+                linearLayout_list.addView(contentLayout);
+            }
         }
         loading = false;
     }
@@ -109,47 +114,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         else if(v == imageView_hash){
-            Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
+            Intent intent = new Intent(this, SelectActivity.class);
             startActivityForResult(intent, 101);
         }
         else if (v == imageView_all){
             makeList(ALL);
         }
         else if (v == imageView_like){
-            loading = true;
-            linearLayout_list.removeAllViews();
             makeLikeList();
-            loading = false;
         }
         scrollView.scrollTo(0,0);
     }
 
     private void makeLikeList() {
-        Cursor cursor = db.rawQuery("select num from userlike where id=?",new String[]{id});
+        loading=true;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select distinct num from userlike where id=?",new String[]{id});
+        linearLayout_list.removeAllViews();
         while (cursor.moveToNext()){
-            try{
-                addListByNo(Integer.parseInt(cursor.getString(0)));
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                continue;
-            }
-        }
-    }
-
-    private void addListByNo(int no) {
-        for(ContentLayout contentLayout:contentLayouts){
-            if (Integer.parseInt(contentLayout.getNo()) == no) {
-                linearLayout_list.addView(contentLayout);
+            for(ContentLayout contentLayout:contentLayouts){
+                if (cursor.getString(0).equals(contentLayout.getNo())) {
+                    if (contentLayout.getParent() != null) {
+                        ((ViewGroup) contentLayout.getParent()).removeView(contentLayout);
+                    }
+                    linearLayout_list.addView(contentLayout);
+                }
             }
         }
+        loading=false;
     }
 
     class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
-
         @Override
         protected Integer doInBackground(Void... params){
             loading = true;
+            Handler mHandler = new Handler(Looper.getMainLooper());
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ProgressDialog asyncDialog = new ProgressDialog(MainActivity.this);
+                    asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    asyncDialog.setMessage("정보를 받아오고 있습니다. 잠시만 기다려주세요.");
+                    asyncDialog.show();
+                    while(loading){}
+                        asyncDialog.dismiss();
+                }
+            }, 0);
+            boolean isEmpty = false;
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("select distinct num from userlike where id=?",new String[]{id});
+            if(!cursor.moveToNext()){
+                isEmpty = true;
+            }
+
             BufferedReader br = null;
             String line;
             String cvsSplitBy = ",";
@@ -161,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 columnText = br.readLine().split(cvsSplitBy);
                 while ((line = br.readLine()) != null) {
                     String[] field = line.split(cvsSplitBy);
-                    contentLayouts.add(new ContentLayout(MainActivity.this, id, field, columnText));
+                    contentLayouts.add(new ContentLayout(MainActivity.this, id, field, columnText, isEmpty));
                 }
             } catch(Exception e){
                 e.printStackTrace();
@@ -181,12 +198,12 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     TextView footer1, footer2;
     Context context;
     String[] row, columns;
-    SQLiteDatabase db;
+    DBHelper dbHelper;
     final int NONE=-2,ALL=-1, NO=0, TITLE=1, LINK=2, IMAGE_LINK=3, DISCRIP=4, AGE_UPPER=5, AGE_LOWWER=6,  CITIZEN=7, OLD=8, MULTI=9 ,KIDS=10,PREGNANT=11, DISABLE=12, LOW_INCOME=13, YOUTH=14, H_EDU=15, H_FIN=16, H_CUL=17, H_TNG=18, H_CON=19, H_HEL=20, H_HOU=21, H_JOB=22, H_FAL=23;
     final int H_START=7, H_END=23;
     final int dip = getResources().getDimensionPixelSize(R.dimen.dip);
 
-    public ContentLayout(Context context,String id,String[] row, String[] columns) {
+    public ContentLayout(Context context,String id,String[] row, String[] columns, boolean isEmpty) {
         super(context);
         this.context = context;
         this.no = row[NO];
@@ -198,7 +215,8 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         this.discription = row[DISCRIP];
         this.id = id;
 
-        db = getContext().openOrCreateDatabase("user", Context.MODE_PRIVATE, null);
+        dbHelper = new DBHelper(getContext());
+
         textView = new TextView(context);
         imageView = new ImageView(context);
         footerLayout = new LinearLayout(context);
@@ -236,13 +254,24 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
             }
         }
 
+        if(isEmpty){
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery("select hash from userinfo where id=?",new String[]{id});
+            while(cursor.moveToNext()){
+                if (row[Integer.parseInt(cursor.getString(0))].equals("1")){
+                    db.execSQL("insert into userlike (id, num) values (?,?)",new String[] {id, no});
+                    db.close();
+                    break;
+                }
+            }
+        }
+
         addView(textView);
         addView(imageView);
 
         setMainLayout();
         setFooterLayout();
     }
-
 
     private void setMainLayout(){
         mainLayout.setOrientation(VERTICAL);
@@ -252,7 +281,6 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         mainHashTagLayout = new LinearLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params.weight = 5;
-        //mainTextView1.setBackgroundColor(0x88448844);
         mainTextView1.setText(discription);
         mainTextView1.setPadding(dip,dip,dip,dip);
         mainTextView1.setLayoutParams(params);
@@ -301,10 +329,11 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         footerLayout.addView(footer2);
         footerLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
         if (isLike()){
-            like();
+            footer1.setText("좋아요 취소");
+            footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.likeText));
+            footer1.setTextColor(0xffffffff);
         }
         else{
-            dislike();
         }
         this.addView(footerLayout);
     }
@@ -336,7 +365,8 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     }
 
     public boolean isLike() {
-        Cursor cursor = db.rawQuery("select num from userlike where id=? and num=?",new String[]{id, no});
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select distinct num from userlike where id=? and num=?",new String[]{id, this.no});
         if(cursor.moveToNext()){
             return true;
         }
@@ -345,8 +375,8 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         }
     }
 
-
     void like(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         footer1.setText("좋아요 취소");
         footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.likeText));
         footer1.setTextColor(0xffffffff);
@@ -354,6 +384,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
     }
 
     void dislike(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         footer1.setText("좋아요");
         footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
         footer1.setTextColor(0xff000000);

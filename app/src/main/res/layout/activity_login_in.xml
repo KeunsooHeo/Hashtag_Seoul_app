@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/logoBackground"
     tools:context=".LoginInActivity">
 
     <Button
@@ -20,14 +19,11 @@
         android:layout_width="215dp"
         android:layout_height="47dp"
         android:layout_marginTop="292dp"
-        android:textColorHint="#66ffffff"
-        android:shadowColor="#aaffffff"
         android:ems="10"
         android:hint="아이디"
         android:inputType="text"
         android:maxLength="16"
         android:singleLine="true"
-        android:textColor="#ffffffff"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -42,8 +38,6 @@
         android:inputType="numberPassword"
         android:maxLength="6"
         android:singleLine="true"
-        android:textColor="#ffffffff"
-        android:textColorHint="#66ffffff"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -56,7 +50,6 @@
         android:layout_marginTop="300dp"
         android:text="아이디"
         android:textSize="25dp"
-        android:textColor="#ffffffff"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,7 +60,6 @@
         android:layout_marginTop="16dp"
         android:text="비밀번호"
         android:textSize="25dp"
-        android:textColor="#ffffffff"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/textVie_id" />
 
@@ -76,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="436dp" />
+        app:layout_constraintGuide_begin="404dp" />
 
     <Button
         android:id="@+id/button_create"
@@ -100,4 +92,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="122dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="92dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="168dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
 </android.support.constraint.ConstraintLayout>
