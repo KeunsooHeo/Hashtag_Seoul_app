@@ -1,61 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context=".MainActivity">
-    <LinearLayout
-        android:id="@+id/layout_header"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <ImageView
-            android:padding="5dp"
-            android:id="@+id/imageView_all"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/all" />
-        <ImageView
-            android:id="@+id/imageView_like"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/like" />
-        <ImageView
-            android:id="@+id/imageView_hash"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/hash" />
-        <ImageView
-            android:id="@+id/imageView_exit"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/exit" />
-    </LinearLayout>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <LinearLayout
+        android:id="@+id/linearLayout_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:background="#44000000"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:id="@+id/layout_list"
+            android:id="@+id/layout_header"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical">
-
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <ImageView
+                android:padding="5dp"
+                android:id="@+id/imageView_all"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/all" />
+            <ImageView
+                android:id="@+id/imageView_like"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/like" />
+            <ImageView
+                android:id="@+id/imageView_hash"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/hash" />
+            <ImageView
+                android:id="@+id/imageView_exit"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/exit" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:background="#44000000"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <LinearLayout
+                android:id="@+id/layout_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/loading_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="99dp"
+            android:layout_height="98dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="228dp"
+            android:text="정보를 가져오고 있습니다.\n잠시만 기다려주세요."
+            android:textAlignment="center"
+            android:textColor="#ff000000"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

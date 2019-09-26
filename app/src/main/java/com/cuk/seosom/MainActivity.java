@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,8 +46,9 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    LinearLayout linearLayout_list, linearLayout_header;
+    LinearLayout linearLayout_list, linearLayout_header, linearLayout_main;
     ImageView imageView_all, imageView_like, imageView_hash, imageView_exit;
+    ConstraintLayout loadingLayout;
     ArrayList<ContentLayout> contentLayouts;
     String id;
     ScrollView scrollView;
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+
+        loadingLayout = findViewById(R.id.loading_frame);
+        linearLayout_main = findViewById(R.id.linearLayout_main);
 
         linearLayout_list   = (LinearLayout) findViewById(R.id.layout_list);
         linearLayout_header = (LinearLayout) findViewById(R.id.layout_header);
@@ -154,25 +159,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
         @Override
         protected Integer doInBackground(Void... params){
-            loading = true;Handler mHandler = new Handler(Looper.getMainLooper());
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ProgressDialog asyncDialog = new ProgressDialog(MainActivity.this);
-                    asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    asyncDialog.setMessage("정보를 받아오고 있습니다. 잠시만 기다려주세요.");
-                    asyncDialog.show();
-                    while(loading){}
-                        asyncDialog.dismiss();
-                }
-            }, 0);
+            loading = true;
             boolean isEmpty = false;
             SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select distinct num from userlike where id=?",new String[]{id});
             if(!cursor.moveToNext()){
                 isEmpty = true;
             }
-
             BufferedReader br = null;
             String line;
             String cvsSplitBy = ",";
@@ -190,6 +183,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
                 return -1;
             }
+            Handler mHandler = new Handler(Looper.getMainLooper());
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingLayout.setVisibility(View.VISIBLE);
+                    linearLayout_main.setVisibility(View.GONE);
+                    while(loading){}
+                    loadingLayout.setVisibility(View.GONE);
+                    linearLayout_main.setVisibility(View.VISIBLE);
+                }
+            }, 0);
             loading = false;
             return 0;
         }
