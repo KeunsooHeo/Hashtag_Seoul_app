@@ -46,7 +46,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     LinearLayout linearLayout_list, linearLayout_header;
-    ImageView imageView_all, imageView_like, imageView_hash;
+    ImageView imageView_all, imageView_like, imageView_hash, imageView_exit;
     ArrayList<ContentLayout> contentLayouts;
     String id;
     ScrollView scrollView;
@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageView_like.setOnClickListener(this);
         imageView_hash = (ImageView) findViewById(R.id.imageView_hash);
         imageView_hash.setOnClickListener(this);
+        imageView_exit = (ImageView) findViewById(R.id.imageView_exit);
+        imageView_exit.setOnClickListener(this);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
     }
 
@@ -122,6 +124,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (v == imageView_like){
             makeLikeList();
+        }
+        else if (v == imageView_exit){
+            finish();
+            Toast.makeText(this, "성공적으로 로그아웃하였습니다.",Toast.LENGTH_LONG).show();
+            return;
         }
         scrollView.scrollTo(0,0);
     }

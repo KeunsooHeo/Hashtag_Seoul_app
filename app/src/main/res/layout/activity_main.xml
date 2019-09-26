@@ -26,13 +26,21 @@ tools:context=".MainActivity">
             android:layout_weight="1"
             app:srcCompat="@drawable/like" />
         <ImageView
+            android:id="@+id/imageView_hash"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:id="@+id/imageView_hash"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/hash" />
+        <ImageView
+            android:id="@+id/imageView_exit"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/exit" />
     </LinearLayout>
 
     <ScrollView
