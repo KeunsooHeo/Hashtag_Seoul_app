@@ -84,7 +84,8 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                 System.out.println("id : "+ cursor.getString(0));
                 if(cursor.getString(1).equals(pw)){
                     Cursor cursor1 = db.rawQuery("select num from userlike where id=?",new String[]{id});
-                    if(!cursor1.moveToNext()){
+                    boolean a = cursor1.moveToNext();
+                    if(!a){
                         Cursor cursor2 = db.rawQuery("select hash from userinfo where id=?",new String[]{id});
                         BufferedReader br = null;
                         String line;

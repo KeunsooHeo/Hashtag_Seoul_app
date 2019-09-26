@@ -73,12 +73,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_multi" />
+                    app:srcCompat="@drawable/pic_youth2" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#다문화가정"
+                    android:text="#아동청소년"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -92,12 +92,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_youth2" />
+                    app:srcCompat="@drawable/pic_prag" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#아동청소년"
+                    android:text="#임산부"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -118,12 +118,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_prag" />
+                    app:srcCompat="@drawable/pic_dis" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#임산부"
+                    android:text="#장애여부"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -137,12 +137,12 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/pic_dis" />
+                    app:srcCompat="@drawable/pic_low" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#장애여부"
+                    android:text="#저소득층"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>

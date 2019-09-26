@@ -18,6 +18,7 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
         contents = new ArrayList<LinearLayout>();
         contents.add((LinearLayout) findViewById(R.id.content_1));
         contents.add((LinearLayout) findViewById(R.id.content_2));
+        contents.add(new LinearLayout(this));
         contents.add((LinearLayout) findViewById(R.id.content_3));
         contents.add((LinearLayout) findViewById(R.id.content_4));
         contents.add((LinearLayout) findViewById(R.id.content_5));
