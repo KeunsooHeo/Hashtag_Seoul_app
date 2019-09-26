@@ -41,13 +41,12 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="196dp"
+            android:layout_marginTop="164dp"
             android:text="사용하실 아이디와 비밀번호를 입력해주세요."
             android:textAlignment="center"
             android:textColor="#ff000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,11 +64,31 @@
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/editText_create_id" />
 
+        <TextView
+            android:id="@+id/textVie_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="216dp"
+            android:text="아이디"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="비밀번호"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/textVie_id" />
+
         <EditText
             android:id="@+id/editText_create_id"
             android:layout_width="215dp"
             android:layout_height="47dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="212dp"
             android:ems="10"
             android:hint="아이디 (최소 4자리)"
             android:inputType="text"
@@ -79,32 +98,12 @@
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView_pw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="비밀번호"
-            android:textSize="25dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/textVie_id" />
-
-        <TextView
-            android:id="@+id/textVie_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="288dp"
-            android:text="아이디"
-            android:textSize="25dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="385dp" />
+            app:layout_constraintGuide_begin="325dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -132,9 +131,9 @@
             android:id="@+id/imageView2"
             android:layout_width="92dp"
             android:layout_height="94dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="56dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.489"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher" />

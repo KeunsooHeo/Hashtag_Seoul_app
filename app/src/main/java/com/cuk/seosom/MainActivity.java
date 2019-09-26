@@ -154,8 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
         @Override
         protected Integer doInBackground(Void... params){
-            loading = true;
-            Handler mHandler = new Handler(Looper.getMainLooper());
+            loading = true;Handler mHandler = new Handler(Looper.getMainLooper());
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -289,6 +288,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params.weight = 5;
         mainTextView1.setText(discription);
+        mainTextView1.setTextColor(0xff000000);
         mainTextView1.setPadding(dip,dip,dip,dip);
         mainTextView1.setLayoutParams(params);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
