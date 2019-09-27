@@ -21,45 +21,97 @@
             android:layout_weight="1"
             android:background="@color/header"
             android:orientation="horizontal">
-            <ImageView
-                android:padding="5dp"
-                android:id="@+id/imageView_all"
-                android:layout_margin="5dp"
+            <LinearLayout
+                android:id="@+id/header_all"
+                android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/all" />
-            <ImageView
-                android:id="@+id/imageView_like"
-                android:layout_width="0dp"
-                android:padding="12dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/like" />
-            <ImageView
-                android:id="@+id/imageView_hash"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/hash" />
-            <ImageView
-                android:id="@+id/imageView_exit"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
+                android:layout_weight="1">
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/all" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ALL"
+                    android:textColor="#ff000000"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/header_like"
+                android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/exit" />
+                android:layout_weight="1">
+                <ImageView
+                    android:padding="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/like" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LIKE"
+                    android:textColor="#ff000000"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/header_hash"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <ImageView
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/hash" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="HASHTAG"
+                    android:textColor="#ff000000"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/header_exit"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <ImageView
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/exit" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LOGOUT"
+                    android:textColor="#ff000000"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
-            android:background="#25000000"
+            android:layout_weight="11"
+            android:background="@color/backgroundList"
             xmlns:android="http://schemas.android.com/apk/res/android">
             <LinearLayout
                 android:id="@+id/layout_list"

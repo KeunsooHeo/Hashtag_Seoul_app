@@ -10,4 +10,5 @@
     <color name="footer">#B3F0788C</color>
     <color name="hashtag">#DE264C</color>
     <color name="header">#d0ffffff</color>
+    <color name="backgroundList">#DADADA</color>
 </resources>

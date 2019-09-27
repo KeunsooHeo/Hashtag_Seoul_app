@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     LinearLayout linearLayout_list, linearLayout_header, linearLayout_main;
-    ImageView imageView_all, imageView_like, imageView_hash, imageView_exit;
+    LinearLayout header_all, header_like, header_hash, header_exit;
     ConstraintLayout loadingLayout;
     ArrayList<ContentLayout> contentLayouts;
     String id;
@@ -75,17 +76,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         loadingLayout = findViewById(R.id.loading_frame);
         linearLayout_main = findViewById(R.id.linearLayout_main);
-
+        header_all = (LinearLayout) findViewById(R.id.header_all);
+        header_all.setOnClickListener(this);
+        header_like = (LinearLayout) findViewById(R.id.header_like);
+        header_like.setOnClickListener(this);
+        header_hash = (LinearLayout) findViewById(R.id.header_hash);
+        header_hash.setOnClickListener(this);
+        header_exit = (LinearLayout) findViewById(R.id.header_exit);
+        header_exit.setOnClickListener(this);
         linearLayout_list   = (LinearLayout) findViewById(R.id.layout_list);
         linearLayout_header = (LinearLayout) findViewById(R.id.layout_header);
-        imageView_all = (ImageView) findViewById(R.id.imageView_all);
-        imageView_all.setOnClickListener(this);
-        imageView_like = (ImageView) findViewById(R.id.imageView_like);
-        imageView_like.setOnClickListener(this);
-        imageView_hash = (ImageView) findViewById(R.id.imageView_hash);
-        imageView_hash.setOnClickListener(this);
-        imageView_exit = (ImageView) findViewById(R.id.imageView_exit);
-        imageView_exit.setOnClickListener(this);
+
         scrollView = (ScrollView) findViewById(R.id.scrollView);
     }
 
@@ -120,17 +121,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "목록을 불러오고 있습니다. 잠시만 기다려주십시오.", Toast.LENGTH_SHORT).show();
             return;
         }
-        else if(v == imageView_hash){
+        else if(v == header_hash){
             Intent intent = new Intent(this, SelectActivity.class);
             startActivityForResult(intent, 101);
         }
-        else if (v == imageView_all){
+        else if (v == header_all){
             makeList(ALL);
         }
-        else if (v == imageView_like){
+        else if (v == header_like){
             makeLikeList();
         }
-        else if (v == imageView_exit){
+        else if (v == header_exit){
             finish();
             Toast.makeText(this, "성공적으로 로그아웃하였습니다.",Toast.LENGTH_LONG).show();
             return;
@@ -234,13 +235,13 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         mainLayout = new LinearLayout(context);
         setOrientation(VERTICAL);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(dip, 3*dip,dip, 3*dip);
+        params.setMargins(dip, 2*dip,dip, 3*dip);
         setLayoutParams(params);
 
         textView.setText(title);
         textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         textView.setPadding(dip,dip,dip,dip);
-        textView.setTextSize(15);
+        textView.setTextSize(18);
         textView.setTextColor(0xffffffff);
         textView.setBackgroundColor(ContextCompat.getColor(getContext() ,R.color.colorPrimaryDark));
         textView.setGravity(Gravity.CENTER);
@@ -296,7 +297,8 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         mainTextView1.setLineSpacing( (float) (0.1*dip),1);
         mainTextView1.setTextColor(0xff000000);
         mainTextView1.setPadding(dip,dip,dip,dip);
-        mainTextView1.setTextSize((float) 0.5*dip);
+        mainTextView1.setTextSize((float) 0.65*dip);
+        mainTextView1.setBreakStrategy(Layout.BREAK_STRATEGY_BALANCED);
         mainTextView1.setLayoutParams(params);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params2.weight = 2;
