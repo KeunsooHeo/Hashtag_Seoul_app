@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#DE264C</color>
+    <color name="colorPrimaryDark">#BC0D35</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="logoBackground">#0daa4f</color>
-    <color name="buttonClicked">#0daa4f</color>
+    <color name="logoBackground">#DE264C</color>
+    <color name="buttonClicked">#FFF0788C</color>
     <color name="buttonNotClicked">#00ffffff</color>
-    <color name="likeText">#0daa4f</color>
-    <color name="footer">#008577</color>
-    <color name="hashtag">#0daa4f</color>
+    <color name="likeText">#FFF0788C</color>
+    <color name="footer">#B3F0788C</color>
+    <color name="hashtag">#DE264C</color>
+    <color name="header">#d0ffffff</color>
 </resources>

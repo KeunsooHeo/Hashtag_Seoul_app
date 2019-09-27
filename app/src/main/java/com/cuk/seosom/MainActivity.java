@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     while(loading){}
                     loadingLayout.setVisibility(View.GONE);
                     linearLayout_main.setVisibility(View.VISIBLE);
+                    makeList(ALL);
                 }
             }, 0);
             loading = false;
@@ -233,7 +234,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         mainLayout = new LinearLayout(context);
         setOrientation(VERTICAL);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(3*dip,dip,3*dip,dip);
+        params.setMargins(dip, 3*dip,dip, 3*dip);
         setLayoutParams(params);
 
         textView.setText(title);
@@ -285,15 +286,17 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
 
     private void setMainLayout(){
         mainLayout.setOrientation(VERTICAL);
-        mainLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 20*dip));
+        mainLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 25*dip));
 
         mainTextView1 = new TextView(context);
         mainHashTagLayout = new LinearLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params.weight = 5;
         mainTextView1.setText(discription);
+        mainTextView1.setLineSpacing( (float) (0.1*dip),1);
         mainTextView1.setTextColor(0xff000000);
         mainTextView1.setPadding(dip,dip,dip,dip);
+        mainTextView1.setTextSize((float) 0.5*dip);
         mainTextView1.setLayoutParams(params);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params2.weight = 2;
@@ -328,6 +331,10 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         footer2.setText("자세히 보기");
         footer1.setTextAlignment(TEXT_ALIGNMENT_CENTER);
         footer2.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+        footer1.setTextSize((int) (0.5*dip));
+        footer2.setTextSize((int) (0.5*dip));
+        footer1.setTextColor(0xffffffff);
+        footer2.setTextColor(0xffffffff);
         footer1.setOnClickListener(this);
         footer2.setOnClickListener(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
@@ -338,7 +345,8 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         footer2.setLayoutParams(params);
         footerLayout.addView(footer1);
         footerLayout.addView(footer2);
-        footerLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
+        footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
+        footer2.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
         if (isLike()){
             footer1.setText("좋아요 취소");
             footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.likeText));
@@ -398,7 +406,7 @@ class ContentLayout extends LinearLayout implements View.OnClickListener{
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         footer1.setText("좋아요");
         footer1.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.footer));
-        footer1.setTextColor(0xff000000);
+        footer1.setTextColor(0xffffffff);
         db.execSQL("delete from userlike where id=? and num=?",new String[]{id,no});
     }
 }

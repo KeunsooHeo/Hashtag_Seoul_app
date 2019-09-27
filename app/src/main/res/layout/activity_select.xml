@@ -17,9 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="검색하실 해시태그를 고르세요."
+            android:layout_marginBottom="10dp"
+            android:textSize="25dp"
             android:textAlignment="center"
             android:textColor="#ff000000"
-            android:layout_weight="0.2"/>
+            android:layout_weight="0.3"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -41,6 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#서울시민"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -60,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#어르신"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -79,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#아동청소년"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -98,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#임산부"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -124,6 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#장애여부"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -143,6 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#저소득층"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -162,6 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#청년"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -181,6 +190,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#교육지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -206,6 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#금융지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -225,6 +236,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#문화지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -244,6 +256,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#물품지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -263,6 +276,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#상담지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -288,6 +302,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#의료지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -307,6 +322,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#주거지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -326,6 +342,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#취업지원"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -345,6 +362,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#편의시설"
+                    android:textColor="#ff000000"
                     android:textAlignment="center"
                     android:textSize="15dp" />
             </LinearLayout>

@@ -19,10 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/header"
             android:orientation="horizontal">
             <ImageView
                 android:padding="5dp"
                 android:id="@+id/imageView_all"
+                android:layout_margin="5dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -30,6 +32,7 @@
             <ImageView
                 android:id="@+id/imageView_like"
                 android:layout_width="0dp"
+                android:padding="12dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/like" />
@@ -56,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"
-            android:background="#44000000"
+            android:background="#25000000"
             xmlns:android="http://schemas.android.com/apk/res/android">
             <LinearLayout
                 android:id="@+id/layout_list"
