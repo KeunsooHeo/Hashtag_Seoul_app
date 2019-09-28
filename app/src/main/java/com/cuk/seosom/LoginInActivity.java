@@ -107,7 +107,7 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                             }
                         }
                     }
-
+                    editText_pw.setText("");
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("id",id);
                     startActivity(intent);

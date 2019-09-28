@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         header_all.setOnClickListener(this);
         header_like = (LinearLayout) findViewById(R.id.header_like);
         header_like.setOnClickListener(this);
+        header_like.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonClicked));
         header_hash = (LinearLayout) findViewById(R.id.header_hash);
         header_hash.setOnClickListener(this);
         header_exit = (LinearLayout) findViewById(R.id.header_exit);
@@ -117,6 +118,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        header_all.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonNotClicked));
+        header_hash.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonNotClicked));
+        header_like.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonNotClicked));
+        header_exit.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonNotClicked));
         if(loading) {
             Toast.makeText(this, "목록을 불러오고 있습니다. 잠시만 기다려주십시오.", Toast.LENGTH_SHORT).show();
             return;
@@ -124,11 +129,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(v == header_hash){
             Intent intent = new Intent(this, SelectActivity.class);
             startActivityForResult(intent, 101);
+            header_hash.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonClicked));
         }
         else if (v == header_all){
+            header_all.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonClicked));
             makeList(ALL);
         }
         else if (v == header_like){
+            header_like.setBackgroundColor(ContextCompat.getColor(this,R.color.buttonClicked));
             makeLikeList();
         }
         else if (v == header_exit){
@@ -193,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     while(loading){}
                     loadingLayout.setVisibility(View.GONE);
                     linearLayout_main.setVisibility(View.VISIBLE);
-                    makeList(ALL);
+                    makeLikeList();
                 }
             }, 0);
             loading = false;
