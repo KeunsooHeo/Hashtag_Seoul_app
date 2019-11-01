@@ -2,4 +2,9 @@
 
 ## #서울 : 개인 맞춤형 서울시 복지 서비스 조회
 
-###
+제작 서솜누리 팀 - 가톨릭대학교 창의적솔루션 공모전부분 팀.
+팀원 : \*허근수, \*표소영, \*김소연  \*가톨릭대학교 정보통신전자공학부  
+  
+created by team Seosomnuri  
+team members : \*Keunsoo Heo, \*soyoung pyo, \*soyeon kim  
+\*Information, Communications and Electronic Engineering of The Catholic Unin. of Korea
