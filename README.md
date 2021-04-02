@@ -7,4 +7,4 @@
   
 created by team Seosomnuri  
 team members : \*Keunsoo Heo, \*soyoung pyo, \*soyeon kim  
-\*Information, Communications and Electronic Engineering of The Catholic Unin. of Korea
+\*Information, Communications and Electronic Engineering of The Catholic Univ. of Korea
